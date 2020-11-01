@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
     public float minCamDistance;
     public float maxCamDistance;
 
+    [Header("Background")]
+    public BackgroundController backgroundController;
+
     [Header("Abilities")]
     public float joystickAbilityZone;
     public float playerDashSpeed;
@@ -37,6 +40,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         cameraController.cameraSpeed = playerMinWalkingSpeed;
+        backgroundController.backgroundSpeed = playerMinWalkingSpeed;
         verticalJoystickValue = 0;
         horizontalJoystickValue = 0;
     }
