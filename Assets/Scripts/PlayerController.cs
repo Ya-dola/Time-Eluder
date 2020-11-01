@@ -8,17 +8,19 @@ public class PlayerController : MonoBehaviour
     public FloatingJoystick floatingJoystick;
     public Rigidbody playerRigBody;
 
-
     [Header("Player Speed")]
     public float playerSpeed;
     public int playerMinWalkingSpeed;
+    [Range(0, 0.95f)]
+    public float playerSlowDownSpeed;
 
     [Header("Camera")]
     public CameraController cameraController;
     public float minCamDistance;
+    public float maxCamDistance;
 
     public float sideWallDistance;
-    
+
     void Awake()
     {
         cameraController.cameraSpeed = playerMinWalkingSpeed;
@@ -39,17 +41,12 @@ public class PlayerController : MonoBehaviour
         if (GameManager.singleton.GameStarted)
             playerRigBody.MovePosition(transform.position + Vector3.forward * playerMinWalkingSpeed * Time.fixedDeltaTime);
 
-
         Vector3 direction = Vector3.forward * floatingJoystick.Vertical + Vector3.right * floatingJoystick.Horizontal;
         playerRigBody.AddForce(direction * playerSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
 
-        // Debug.Log("Direction: " + direction);
-
-        // To reset the force applied on the player
+        // To reset the force applied on the player and reduce the force applied on it gradually 
         if (direction == Vector3.zero)
-        {
-            playerRigBody.velocity = playerRigBody.velocity * 0.9f;
-        }
+            playerRigBody.velocity = playerRigBody.velocity * playerSlowDownSpeed;
 
         // To stop applying force on the player after a threshold
         if (playerRigBody.velocity.magnitude < 0.1f)
@@ -62,18 +59,24 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 playerOldPos = transform.position;
 
-        // To make the ball not fall from the floor
+        // To make the ball not fall from the floor through the sides
         if (transform.position.x < -sideWallDistance)
             playerOldPos.x = -sideWallDistance;
 
         else if (transform.position.x > sideWallDistance)
             playerOldPos.x = sideWallDistance;
 
-        // To make the ball always be in front of the camera and never behind it
-        float playerLowestPostion = Camera.main.transform.position.z + minCamDistance;
+        // To make the ball maintain a certain distance in front of the camera and never behind it
+        float playerclosestPostion = Camera.main.transform.position.z + minCamDistance;
 
-        if (transform.position.z < playerLowestPostion)
-            playerOldPos.z = playerLowestPostion;
+        if (transform.position.z < playerclosestPostion)
+            playerOldPos.z = playerclosestPostion;
+
+        // To make the ballnever extend a certain distance from the camera
+        float playerfurthestPostion = Camera.main.transform.position.z + maxCamDistance;
+
+        if (transform.position.z > playerfurthestPostion)
+            playerOldPos.z = playerfurthestPostion;
 
         transform.position = playerOldPos;
     }
