@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     // Enabling on the fly camera speed changes for debugging
-    [SerializeField] private int cameraSpeed = 5;
+    public int cameraSpeed { get; set; }
 
     private void FixedUpdate()
     {
