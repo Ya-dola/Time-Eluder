@@ -1,27 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    // TODO - Add Headers and group fields
     public static GameManager singleton;
     public bool GameStarted { get; private set; }
     public bool GameEnded { get; private set; }
 
+    [Header("Start and Finish Lines")]
     [SerializeField] private Transform startTransform;
     [SerializeField] private Transform finishTransform;
+
+    [Header("Player")]
     [SerializeField] private PlayerController playerController;
 
+    [Header("Slow Motion Time")]
     [SerializeField] private float slowMotionFactor = 0.1f;
     [SerializeField] private float deltaTime = 0.02f;
     [SerializeField] private int transitionTime = 3;
 
-    public float EntireDistance { get; private set; }
-    public float RemainingDistance { get; private set; }
+    // Abilities Management
+    [Header("Abilities")]
+    public Image darkDashImage;
+    public float playerDashCooldown;
+    public bool isDashCooldown { get; set; }
+    public Image darkSlowTimeImage;
+    public float playerSlowTimeCooldown;
+    public bool isSlowTimeCooldown { get; set; }
 
+    // [Header("UI Text")]
     // public GameObject youWonText;
     // public GameObject youDiedText;
+
+    // Player Distance Management
+    public float EntireDistance { get; private set; }
+    public float RemainingDistance { get; private set; }
 
     private void Awake()
     {
@@ -35,10 +50,12 @@ public class GameManager : MonoBehaviour
         Time.fixedDeltaTime = deltaTime;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         EntireDistance = finishTransform.position.z - startTransform.position.z;
+
+        darkDashImage.fillAmount = 0;
+        darkSlowTimeImage.fillAmount = 0;
 
         // Signals the Game has started and only runs it once if the game has already started
         if (!GameManager.singleton.GameStarted)
@@ -48,7 +65,6 @@ public class GameManager : MonoBehaviour
         // youDiedText.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         RemainingDistance = Vector3.Distance(playerController.transform.position, finishTransform.position);

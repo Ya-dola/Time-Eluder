@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [Header("Joystick")]
     [Range(0, 1)]
     public float joystickDeadZone;
-    
 
     [Header("Player Speed")]
     public float playerSpeed;
@@ -23,6 +22,11 @@ public class PlayerController : MonoBehaviour
     public CameraController cameraController;
     public float minCamDistance;
     public float maxCamDistance;
+
+    [Header("Abilities")]
+    public float joystickAbilityZone;
+    public float playerDashSpeed;
+    public float playerDashTime;
 
     [Header("Enviroment")]
     public float sideWallDistance;
@@ -79,8 +83,11 @@ public class PlayerController : MonoBehaviour
         if (playerRigBody.velocity.magnitude < 0.1f)
             playerRigBody.velocity = Vector3.zero;
 
-        Debug.Log("Horizontal: " + floatingJoystick.Horizontal);
-        Debug.Log("Vertical: " + floatingJoystick.Vertical);
+        // Debug.Log("Horizontal: " + floatingJoystick.Horizontal);
+        // Debug.Log("Vertical: " + floatingJoystick.Vertical);
+
+        // Dashing Logic for Player
+        ActivatePlayerDash();
     }
 
     // Late Update used mainly for Camera Calculations and Calculations that need to occur after movement has occured
@@ -109,5 +116,45 @@ public class PlayerController : MonoBehaviour
             playerOldPos.z = playerfurthestPostion;
 
         transform.position = playerOldPos;
+    }
+
+    private void ActivatePlayerDash()
+    {
+
+        if (floatingJoystick.Vertical > joystickAbilityZone && GameManager.singleton.isDashCooldown == false)
+        {
+            GameManager.singleton.isDashCooldown = true;
+            GameManager.singleton.darkDashImage.fillAmount = 1;
+
+            StartCoroutine(PlayerDash());
+        }
+
+        if (GameManager.singleton.isDashCooldown)
+        {
+            GameManager.singleton.darkDashImage.fillAmount -= 1 / GameManager.singleton.playerDashCooldown * Time.deltaTime;
+
+            Debug.Log("Dash Cooling Down !!!");
+
+            if (GameManager.singleton.darkDashImage.fillAmount <= 0)
+            {
+                GameManager.singleton.darkDashImage.fillAmount = 0;
+                GameManager.singleton.isDashCooldown = false;
+            }
+        }
+    }
+
+    IEnumerator PlayerDash()
+    {
+        float startTime = Time.time;
+
+        Debug.Log("Dash Activated !!!");
+
+        while (Time.time < startTime + playerDashTime)
+        {
+            Vector3 direction = Vector3.forward * verticalJoystickValue + Vector3.right * horizontalJoystickValue;
+            playerRigBody.AddForce(direction * playerDashSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+
+            yield return null;
+        }
     }
 }
