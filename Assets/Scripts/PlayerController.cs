@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public BackgroundController backgroundController;
 
     [Header("Abilities")]
+    [Range(0, 1)]
     public float joystickAbilityZone;
     public float playerDashSpeed;
     public float playerDashTime;
@@ -77,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
         // Vector3 direction = Vector3.forward * floatingJoystick.Vertical + Vector3.right * floatingJoystick.Horizontal;
         Vector3 direction = Vector3.forward * verticalJoystickValue + Vector3.right * horizontalJoystickValue;
-        playerRigBody.AddForce(direction * playerSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        playerRigBody.AddForce(direction * Time.fixedDeltaTime * playerSpeed * GameManager.singleton.playerSpeedFactor, ForceMode.VelocityChange);
 
         // To reset the force applied on the player and reducing it gradually 
         if (direction == Vector3.zero)
@@ -137,7 +138,7 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.singleton.darkDashImage.fillAmount -= 1 / GameManager.singleton.playerDashCooldown * Time.deltaTime;
 
-            Debug.Log("Dash Cooling Down !!!");
+            // Debug.Log("Dash Cooling Down !!!");
 
             if (GameManager.singleton.darkDashImage.fillAmount <= 0)
             {
@@ -151,12 +152,12 @@ public class PlayerController : MonoBehaviour
     {
         float startTime = Time.time;
 
-        Debug.Log("Dash Activated !!!");
+        // Debug.Log("Dash Activated !!!");
 
         while (Time.time < startTime + playerDashTime)
         {
             Vector3 direction = Vector3.forward * verticalJoystickValue + Vector3.right * horizontalJoystickValue;
-            playerRigBody.AddForce(direction * playerDashSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            playerRigBody.AddForce(direction * Time.fixedDeltaTime * playerDashSpeed * GameManager.singleton.playerSpeedFactor, ForceMode.VelocityChange);
 
             yield return null;
         }

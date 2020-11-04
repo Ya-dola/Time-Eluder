@@ -9,12 +9,9 @@ public class GameManager : MonoBehaviour
     public bool GameStarted { get; private set; }
     public bool GameEnded { get; private set; }
 
-    [Header("Start and Finish Lines")]
-    [SerializeField] private Transform startTransform;
-    [SerializeField] private Transform finishTransform;
-
     [Header("Player")]
     [SerializeField] private PlayerController playerController;
+    public float playerSpeedFactor;
 
     [Header("Slow Motion Time")]
     [SerializeField] private float slowMotionFactor = 0.1f;
@@ -33,6 +30,10 @@ public class GameManager : MonoBehaviour
     // [Header("UI Text")]
     // public GameObject youWonText;
     // public GameObject youDiedText;
+
+    [Header("Start and Finish Lines")]
+    [SerializeField] private Transform startTransform;
+    [SerializeField] private Transform finishTransform;
 
     // Player Distance Management
     public float EntireDistance { get; private set; }
