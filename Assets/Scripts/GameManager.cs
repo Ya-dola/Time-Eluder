@@ -14,6 +14,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     public float playerSpeedFactor;
 
+    [Header("Camera")]
+    public CameraController cameraController;
+    public float minCamDistance;
+    public float maxCamDistance;
+    
+    [Header("Background")]
+    public BackgroundController backgroundController;
+
     [Header("Slow Motion Time")]
     [SerializeField] private float slowMotionFactor = 0.1f;
     [SerializeField] private float deltaTime = 0.02f;
@@ -37,6 +45,10 @@ public class GameManager : MonoBehaviour
     // [Header("UI Text")]
     // public GameObject youWonText;
     // public GameObject youDiedText;
+    
+    [Header("Enviroment")]
+    public float sideWallDistance;
+    public int environmentWalkingSpeed;
 
     [Header("Start and Finish Lines")]
     [SerializeField] private Transform startTransform;
@@ -57,6 +69,10 @@ public class GameManager : MonoBehaviour
         // Specifies Default time flow
         Time.timeScale = 1f;
         Time.fixedDeltaTime = deltaTime;
+
+        // Environment Initial Walking Speed
+        cameraController.cameraSpeed = environmentWalkingSpeed;
+        backgroundController.backgroundSpeed = environmentWalkingSpeed;
 
         // TODO - Load the saved high score
         // highScore = PlayerPrefs.GetInt("HighScore");

@@ -10865,6 +10865,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 2073659378}
   playerSpeedFactor: 4
+  cameraController: {fileID: 963194229}
+  minCamDistance: 18
+  maxCamDistance: 28
+  backgroundController: {fileID: 1880429338}
   slowMotionFactor: 0.1
   deltaTime: 0.02
   transitionTime: 3
@@ -10874,6 +10878,8 @@ MonoBehaviour:
   playerSlowTimeCooldown: 8
   scoreText: {fileID: 2135342300}
   coinScoreValue: 1
+  sideWallDistance: 5
+  environmentWalkingSpeed: 5
   startTransform: {fileID: 868698790}
   finishTransform: {fileID: 1429048799}
 --- !u!4 &2038823632
@@ -11017,17 +11023,11 @@ MonoBehaviour:
   floatingJoystick: {fileID: 1782680202}
   playerRigBody: {fileID: 2073659377}
   joystickDeadZone: 0.2
-  playerSpeed: 10
-  playerMinWalkingSpeed: 5
+  playerMoveSpeed: 10
   playerSlowDownSpeed: 0.74
-  cameraController: {fileID: 963194229}
-  minCamDistance: 18
-  maxCamDistance: 28
-  backgroundController: {fileID: 1880429338}
   joystickAbilityZone: 0.99
   playerDashSpeed: 200
   playerDashTime: 0.25
-  sideWallDistance: 5
 --- !u!135 &2073659379
 SphereCollider:
   m_ObjectHideFlags: 0

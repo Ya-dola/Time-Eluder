@@ -13,18 +13,9 @@ public class PlayerController : MonoBehaviour
     public float joystickDeadZone;
 
     [Header("Player Speed")]
-    public float playerSpeed;
-    public int playerMinWalkingSpeed;
+    public float playerMoveSpeed;
     [Range(0, 0.95f)]
     public float playerSlowDownSpeed;
-
-    [Header("Camera")]
-    public CameraController cameraController;
-    public float minCamDistance;
-    public float maxCamDistance;
-
-    [Header("Background")]
-    public BackgroundController backgroundController;
 
     [Header("Abilities")]
     [Range(0, 1)]
@@ -32,16 +23,11 @@ public class PlayerController : MonoBehaviour
     public float playerDashSpeed;
     public float playerDashTime;
 
-    [Header("Enviroment")]
-    public float sideWallDistance;
-
     private float verticalJoystickValue;
     private float horizontalJoystickValue;
 
     void Awake()
     {
-        cameraController.cameraSpeed = playerMinWalkingSpeed;
-        backgroundController.backgroundSpeed = playerMinWalkingSpeed;
         verticalJoystickValue = 0;
         horizontalJoystickValue = 0;
     }
@@ -59,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
         // Make the player move when game starts 
         if (GameManager.singleton.GameStarted)
-            playerRigBody.MovePosition(transform.position + Vector3.forward * playerMinWalkingSpeed * Time.fixedDeltaTime);
+            playerRigBody.MovePosition(transform.position + Vector3.forward * GameManager.singleton.environmentWalkingSpeed * Time.fixedDeltaTime);
 
         // General Movement of Player
         if (floatingJoystick.Vertical > joystickDeadZone)
@@ -78,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
         // Vector3 direction = Vector3.forward * floatingJoystick.Vertical + Vector3.right * floatingJoystick.Horizontal;
         Vector3 direction = Vector3.forward * verticalJoystickValue + Vector3.right * horizontalJoystickValue;
-        playerRigBody.AddForce(direction * Time.fixedDeltaTime * playerSpeed * GameManager.singleton.playerSpeedFactor, ForceMode.VelocityChange);
+        playerRigBody.AddForce(direction * Time.fixedDeltaTime * playerMoveSpeed * GameManager.singleton.playerSpeedFactor, ForceMode.VelocityChange);
 
         // To reset the force applied on the player and reducing it gradually 
         if (direction == Vector3.zero)
@@ -102,20 +88,20 @@ public class PlayerController : MonoBehaviour
         Vector3 playerOldPos = transform.position;
 
         // To make the ball not fall from the floor through the sides
-        if (transform.position.x < -sideWallDistance)
-            playerOldPos.x = -sideWallDistance;
+        if (transform.position.x < -GameManager.singleton.sideWallDistance)
+            playerOldPos.x = -GameManager.singleton.sideWallDistance;
 
-        else if (transform.position.x > sideWallDistance)
-            playerOldPos.x = sideWallDistance;
+        else if (transform.position.x > GameManager.singleton.sideWallDistance)
+            playerOldPos.x = GameManager.singleton.sideWallDistance;
 
         // To make the ball maintain a certain distance in front of the camera and never behind it
-        float playerclosestPostion = Camera.main.transform.position.z + minCamDistance;
+        float playerclosestPostion = Camera.main.transform.position.z + GameManager.singleton.minCamDistance;
 
         if (transform.position.z < playerclosestPostion)
             playerOldPos.z = playerclosestPostion;
 
         // To make the ballnever extend a certain distance from the camera
-        float playerfurthestPostion = Camera.main.transform.position.z + maxCamDistance;
+        float playerfurthestPostion = Camera.main.transform.position.z + GameManager.singleton.maxCamDistance;
 
         if (transform.position.z > playerfurthestPostion)
             playerOldPos.z = playerfurthestPostion;
