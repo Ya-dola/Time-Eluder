@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,12 @@ public class GameManager : MonoBehaviour
     public float playerSlowTimeCooldown;
     public bool isSlowTimeCooldown { get; set; }
 
+    [Header("Score")]
+    public TextMeshProUGUI scoreText;
+    public int currentScore { get; set; }
+    public int highScore { get; set; }
+    public int coinScoreValue;
+
     // [Header("UI Text")]
     // public GameObject youWonText;
     // public GameObject youDiedText;
@@ -41,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        // Creates a Single Instance of the game manager through out the entire game
         if (singleton == null)
             singleton = this;
         else if (singleton != this)
@@ -49,14 +57,22 @@ public class GameManager : MonoBehaviour
         // Specifies Default time flow
         Time.timeScale = 1f;
         Time.fixedDeltaTime = deltaTime;
+
+        // TODO - Load the saved high score
+        // highScore = PlayerPrefs.GetInt("HighScore");
     }
 
     void Start()
     {
+        // Progress Bar
         EntireDistance = finishTransform.position.z - startTransform.position.z;
 
+        // Abilities Cooldown 
         darkDashImage.fillAmount = 0;
         darkSlowTimeImage.fillAmount = 0;
+
+        // Score Value
+        currentScore = 0;
 
         // Signals the Game has started and only runs it once if the game has already started
         if (!GameManager.singleton.GameStarted)
@@ -77,6 +93,22 @@ public class GameManager : MonoBehaviour
         // To avoid negative distance being shown to the player if the Player has passed the finish line
         if (playerController.transform.position.z > finishTransform.transform.position.z)
             RemainingDistance = 0;
+
+        // Score Updates
+        scoreText.text = "Score: " + currentScore;
+    }
+
+    public void AddCoinCollected()
+    {
+        // Score Update on collecting a coin
+        currentScore += coinScoreValue;
+
+        if (currentScore > highScore)
+        {
+            // TODO - To store the new high score for the user
+            // PlayerPrefs.SetInt("HighScore", highScore);
+            highScore = currentScore;
+        }
     }
 
     public void StartGame()
