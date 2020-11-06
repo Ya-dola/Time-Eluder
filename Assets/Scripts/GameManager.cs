@@ -51,12 +51,12 @@ public class GameManager : MonoBehaviour
     public int environmentWalkingSpeed;
 
     [Header("Start and Finish Lines")]
-    [SerializeField] private Transform startTransform;
-    [SerializeField] private Transform finishTransform;
+    [SerializeField] private Transform startLine;
+    [SerializeField] private Transform finishLine;
 
     // Player Distance Management
-    public float EntireDistance { get; private set; }
-    public float RemainingDistance { get; private set; }
+    public float entireDistance { get; private set; }
+    public float remainingDistance { get; private set; }
 
     private void Awake()
     {
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Progress Bar
-        EntireDistance = finishTransform.position.z - startTransform.position.z;
+        entireDistance = finishLine.position.z - startLine.position.z;
 
         // Abilities Cooldown 
         darkDashImage.fillAmount = 0;
@@ -100,15 +100,15 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        RemainingDistance = Vector3.Distance(playerController.transform.position, finishTransform.position);
+        remainingDistance = Vector3.Distance(playerController.transform.position, finishLine.position);
 
         // If Player is behind start line then the distance is the distance between the start and finish lines 
-        if (RemainingDistance > EntireDistance)
-            RemainingDistance = EntireDistance;
+        if (remainingDistance > entireDistance)
+            remainingDistance = entireDistance;
 
         // To avoid negative distance being shown to the player if the Player has passed the finish line
-        if (playerController.transform.position.z > finishTransform.transform.position.z)
-            RemainingDistance = 0;
+        if (playerController.transform.position.z > finishLine.transform.position.z)
+            remainingDistance = 0;
 
         // Score Updates
         scoreText.text = "Score: " + currentScore;

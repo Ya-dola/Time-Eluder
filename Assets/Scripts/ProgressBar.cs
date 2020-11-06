@@ -26,8 +26,8 @@ public class ProgressBar : MonoBehaviour
         if (!GameManager.singleton.GameStarted)
             return;
 
-        float travelledDistance = GameManager.singleton.EntireDistance - GameManager.singleton.RemainingDistance;
-        float barValue = travelledDistance / GameManager.singleton.EntireDistance;
+        float travelledDistance = GameManager.singleton.entireDistance - GameManager.singleton.remainingDistance;
+        float barValue = travelledDistance / GameManager.singleton.entireDistance;
 
         // If the progress bar is not to supposed to increase
         if (GameManager.singleton.GameEnded && barValue < lastBarValue)
