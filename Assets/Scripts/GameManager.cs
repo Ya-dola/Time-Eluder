@@ -52,20 +52,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform startLine;
     [SerializeField] private Transform finishLine;
     
-    [Header("Coin")]
-    public GameObject coinPrefab;
+    // [Header("Coin")]
 
-    [Header("Roadblock")]
-    public GameObject roadblockPrefab;
+    // [Header("Roadblock")]
     
-    [Header("Damaged Roadblock")]
-    public GameObject damagedRoadblockPrefab;
+    // [Header("Damaged Roadblock")]
     
-    [Header("Left Laser Turret")]
-    public GameObject leftLaserTurretPrefab;
+    // [Header("Left Laser Turret")]
     
-    [Header("Right Laser Turret")]
-    public GameObject rightLaserTurretPrefab;
+    // [Header("Right Laser Turret")]
 
     // Player Distance Management
     public float entireDistance { get; private set; }

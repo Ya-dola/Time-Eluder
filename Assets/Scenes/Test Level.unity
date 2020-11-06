@@ -198,6 +198,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106551419}
   m_CullTransparentMesh: 0
+--- !u!1 &313912744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 313912745}
+  m_Layer: 0
+  m_Name: Coin Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &313912745
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313912744}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1415290350}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &338658799
 GameObject:
   m_ObjectHideFlags: 0
@@ -5390,6 +5420,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &738576571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 738576572}
+  m_Layer: 0
+  m_Name: Roadblock Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &738576572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738576571}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1415290350}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &868698790 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5906341140486628493, guid: e174c7e803d03f040b10cd33d96667e4, type: 3}
@@ -5566,6 +5626,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe2f97d31f7e2249aed9283e36ca671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &968586333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 968586334}
+  m_Layer: 0
+  m_Name: Right Laser Turret Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &968586334
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968586333}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1415290350}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &970815433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 970815434}
+  m_Layer: 0
+  m_Name: Damaged Roadblock Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &970815434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970815433}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1415290350}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1285237520
 GameObject:
   m_ObjectHideFlags: 0
@@ -5637,6 +5757,36 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
   m_PrefabInstance: {fileID: 1553274973}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1330336117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1330336118}
+  m_Layer: 0
+  m_Name: Left Laser Turret Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1330336118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330336117}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1415290350}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1415290349
 GameObject:
   m_ObjectHideFlags: 0
@@ -5646,6 +5796,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1415290350}
+  - component: {fileID: 1415290351}
   m_Layer: 0
   m_Name: Interactables
   m_TagString: Untagged
@@ -5663,10 +5814,37 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 313912745}
+  - {fileID: 738576572}
+  - {fileID: 970815434}
+  - {fileID: 1330336118}
+  - {fileID: 968586334}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1415290351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415290349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ebbf95b3482e94b96e7b1083f587f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinPrefab: {fileID: 8683115621609227637, guid: 239bcf05fd4b4b84d8eb584c9e78d8be, type: 3}
+  coinHolder: {fileID: 313912745}
+  roadblockPrefab: {fileID: 8322049048141566065, guid: cb98aa8adc6a06349bf5c434c8ee4317, type: 3}
+  roadblockHolder: {fileID: 738576572}
+  damagedRoadblockPrefab: {fileID: 4546317339463591452, guid: 4dcee2bbe4394574a8fb79a7f938c385, type: 3}
+  damagedRoadblockHolder: {fileID: 970815434}
+  leftLaserTurretPrefab: {fileID: 4051847673115862379, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
+  leftLaserTurretHolder: {fileID: 1330336118}
+  rightLaserTurretPrefab: {fileID: 4272100539962859333, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
+  rightLaserTurretHolder: {fileID: 968586334}
 --- !u!4 &1429048799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8847816727174216934, guid: ac346e28baf58c6478ded8a890065bb0, type: 3}
@@ -10944,11 +11122,6 @@ MonoBehaviour:
   environmentWalkingSpeed: 5
   startLine: {fileID: 868698790}
   finishLine: {fileID: 1429048799}
-  coinPrefab: {fileID: 8683115621609227637, guid: 239bcf05fd4b4b84d8eb584c9e78d8be, type: 3}
-  roadblockPrefab: {fileID: 8322049048141566065, guid: cb98aa8adc6a06349bf5c434c8ee4317, type: 3}
-  damagedRoadblockPrefab: {fileID: 4546317339463591452, guid: 4dcee2bbe4394574a8fb79a7f938c385, type: 3}
-  leftLaserTurretPrefab: {fileID: 4051847673115862379, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
-  rightLaserTurretPrefab: {fileID: 4272100539962859333, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
 --- !u!4 &2038823632
 Transform:
   m_ObjectHideFlags: 0
