@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public float minCamDistance;
     public float maxCamDistance;
     
-    [Header("Background")]
+    [Header("Camera Background")]
     public BackgroundController backgroundController;
 
     [Header("Slow Motion Time")]
@@ -49,10 +49,23 @@ public class GameManager : MonoBehaviour
     [Header("Enviroment")]
     public float sideWallDistance;
     public int environmentWalkingSpeed;
-
-    [Header("Start and Finish Lines")]
     [SerializeField] private Transform startLine;
     [SerializeField] private Transform finishLine;
+    
+    [Header("Coin")]
+    public GameObject coinPrefab;
+
+    [Header("Roadblock")]
+    public GameObject roadblockPrefab;
+    
+    [Header("Damaged Roadblock")]
+    public GameObject damagedRoadblockPrefab;
+    
+    [Header("Left Laser Turret")]
+    public GameObject leftLaserTurretPrefab;
+    
+    [Header("Right Laser Turret")]
+    public GameObject rightLaserTurretPrefab;
 
     // Player Distance Management
     public float entireDistance { get; private set; }

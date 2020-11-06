@@ -10944,6 +10944,11 @@ MonoBehaviour:
   environmentWalkingSpeed: 5
   startLine: {fileID: 868698790}
   finishLine: {fileID: 1429048799}
+  coinPrefab: {fileID: 8683115621609227637, guid: 239bcf05fd4b4b84d8eb584c9e78d8be, type: 3}
+  roadblockPrefab: {fileID: 8322049048141566065, guid: cb98aa8adc6a06349bf5c434c8ee4317, type: 3}
+  damagedRoadblockPrefab: {fileID: 4546317339463591452, guid: 4dcee2bbe4394574a8fb79a7f938c385, type: 3}
+  leftLaserTurretPrefab: {fileID: 4051847673115862379, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
+  rightLaserTurretPrefab: {fileID: 4272100539962859333, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
 --- !u!4 &2038823632
 Transform:
   m_ObjectHideFlags: 0
