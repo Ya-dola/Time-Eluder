@@ -11,16 +11,26 @@ public class InteractablesController : MonoBehaviour
     public GameObject coinPrefab;
     public Transform coinHolder;
     public Vector3 coinColliderHalfSize;
+    public float[] coinXPositions;
+    public float[] coinZPosGapRange;
 
     [Header("Roadblock")]
     public GameObject roadblockPrefab;
     public Transform roadblockHolder;
     public Vector3 roadblockColliderHalfSize;
+    public float[] roadblockXPositions;
+    public float[] roadblockZPosGapRange;
 
     [Header("Damaged Roadblock")]
     public GameObject damagedRoadblockPrefab;
     public Transform damagedRoadblockHolder;
     public Vector3 damagedRoadblockColliderHalfSize;
+    public float[] damagedRoadblockXPositions;
+    public float[] damagedRoadblockZPosGapRange;
+
+    [Header("Common Laser Turrets")]
+    public float[] laserXPositions;
+    public float[] laserZPosGapRange;
 
     [Header("Left Laser Turret")]
     public GameObject leftLaserTurretPrefab;
@@ -53,29 +63,51 @@ public class InteractablesController : MonoBehaviour
         // Destroying Existing Interactables if any
         DestroyExistingInteractables();
 
-        // Generate Coin Interactables
-        GenerateCoins();
-
-        // Generate Roadblock Interactables
-        GenerateRoadblocks();
+        // Generate Left or right Laser Turret Interactables
+        GenerateLaserTurrets();
 
         // Generate Damaged Roadblock Interactables
         GenerateDamagedRoadblocks();
 
-        // Generate Left Laser Turret Interactables
-        GenerateLeftLaserTurret();
+        // Generate Roadblock Interactables
+        GenerateRoadblocks();
 
-        // Generate Right Laser Turret Interactables
-        GenerateRightLaserTurret();
+        // Generate Coin Interactables
+        GenerateCoins();
 
     }
 
     private void DestroyExistingInteractables()
     {
+        DestroyGameObjectChildren(leftLaserTurretHolder);
+        DestroyGameObjectChildren(rightLaserTurretHolder);
+        DestroyGameObjectChildren(damagedRoadblockHolder);
+        DestroyGameObjectChildren(roadblockHolder);
+        DestroyGameObjectChildren(coinHolder);
+    }
+
+    private void DestroyGameObjectChildren(Transform parentGameObject)
+    {
+        foreach (Transform item in parentGameObject)
+        {
+            Destroy(item.gameObject);
+        }
+    }
+
+    private void GenerateLaserTurrets()
+    {
 
     }
 
+    private void GenerateDamagedRoadblocks()
+    {
 
+    }
+
+    private void GenerateRoadblocks()
+    {
+
+    }
 
     private void GenerateCoins()
     {
@@ -104,26 +136,33 @@ public class InteractablesController : MonoBehaviour
         //     }
         // }
     }
-    private void GenerateRoadblocks()
+
+    private bool isPosColliderExist(Vector3 position, string objToGenerate)
     {
+        switch (objToGenerate)
+        {
+            case "coin":
+                if (Physics.CheckBox(position, coinColliderHalfSize))
+                    return true;
+                break;
 
-    }
-    private void GenerateDamagedRoadblocks()
-    {
+            case "roadblock":
+                if (Physics.CheckBox(position, roadblockColliderHalfSize, Quaternion.Euler(0f, 90f, 0)))
+                    return true;
+                break;
 
-    }
-    private void GenerateLeftLaserTurret()
-    {
+            case "damagedRoadblock":
+                if (Physics.CheckBox(position, damagedRoadblockColliderHalfSize, Quaternion.Euler(0f, 90f, 0)))
+                    return true;
+                break;
 
-    }
+            case "laser":
+                break;
 
-    private void GenerateRightLaserTurret()
-    {
+            default:
+                break;
+        }
 
-    }
-
-    private void isPosColliderExist()
-    {
-
+        return false;
     }
 }
