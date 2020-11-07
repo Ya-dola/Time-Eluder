@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3735360242374941519}
   m_Layer: 0
   m_Name: Damaged Roadblock
-  m_TagString: Roadblock
+  m_TagString: Damaged Roadblock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,5 +93,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.82005626, y: 1.13919, z: 2.0041752}
-  m_Center: {x: 0.00016342108, y: 0.0008433163, z: 0.00044554484}
+  m_Size: {x: 0.82, y: 1.14, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
