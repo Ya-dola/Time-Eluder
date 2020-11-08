@@ -49,18 +49,8 @@ public class GameManager : MonoBehaviour
     [Header("Enviroment")]
     public float sideWallDistance;
     public int environmentWalkingSpeed;
-    [SerializeField] private Transform startLine;
-    [SerializeField] private Transform finishLine;
-    
-    // [Header("Coin")]
-
-    // [Header("Roadblock")]
-    
-    // [Header("Damaged Roadblock")]
-    
-    // [Header("Left Laser Turret")]
-    
-    // [Header("Right Laser Turret")]
+    public Transform startLine;
+    public Transform finishLine;
 
     // Player Distance Management
     public float entireDistance { get; private set; }

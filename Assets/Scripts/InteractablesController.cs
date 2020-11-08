@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class InteractablesController : MonoBehaviour
 {
-    [Header("Interactables Y Position")]
-    public float yPos;
+    [Header("Interactables Logic")]
+    public float interactableYPos;
+    public int maxInteractablesGenerateAttempts;
 
     [Header("Coin")]
     public GameObject coinPrefab;
@@ -13,6 +14,8 @@ public class InteractablesController : MonoBehaviour
     public Vector3 coinColliderHalfSize;
     public float[] coinXPositions;
     public float[] coinZPosGapRange;
+    public int coinMaxPerLine;
+    public float coinYRotation;
 
     [Header("Roadblock")]
     public GameObject roadblockPrefab;
@@ -20,6 +23,8 @@ public class InteractablesController : MonoBehaviour
     public Vector3 roadblockColliderHalfSize;
     public float[] roadblockXPositions;
     public float[] roadblockZPosGapRange;
+    public int roadblockMaxPerLine;
+    public float roadblockYRotation;
 
     [Header("Damaged Roadblock")]
     public GameObject damagedRoadblockPrefab;
@@ -27,54 +32,43 @@ public class InteractablesController : MonoBehaviour
     public Vector3 damagedRoadblockColliderHalfSize;
     public float[] damagedRoadblockXPositions;
     public float[] damagedRoadblockZPosGapRange;
+    public int damagedRoadblockMaxPerLine;
+    public float damagedRoadblockYRotation;
 
     [Header("Common Laser Turrets")]
     public float[] laserXPositions;
     public float[] laserZPosGapRange;
+    public int laserMaxPerLine;
 
     [Header("Left Laser Turret")]
     public GameObject leftLaserTurretPrefab;
     public Transform leftLaserTurretHolder;
+    public float leftLaserTurretYRotation;
 
     [Header("Right Laser Turret")]
     public GameObject rightLaserTurretPrefab;
     public Transform rightLaserTurretHolder;
+    public float rightLaserTurretYRotation;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // if (Physics.CheckBox(new Vector3(-2f, yPos, 22f), coinColliderHalfSize))
-        //     Debug.Log("Coin Colliding");
-        // if (Physics.CheckBox(new Vector3(-4f, yPos, 32f), roadblockColliderHalfSize, Quaternion.Euler(0f, 90f, 0)))
-        //     Debug.Log("Roadblock Colliding");
-        // if (Physics.CheckBox(new Vector3(-3f, yPos, 26f), damagedRoadblockColliderHalfSize, Quaternion.Euler(0f, 90f, 0)))
-        //     Debug.Log("Damaged Roadblock Colliding");
-    }
-
-    public void GenerateInteractables()
-    {
-        // Destroying Existing Interactables if any
+        // Destroying Existing Interactables
         DestroyExistingInteractables();
 
         // Generate Left or right Laser Turret Interactables
-        GenerateLaserTurrets();
+        GenerateInteractables("laser", laserZPosGapRange[0], laserZPosGapRange[1], laserMaxPerLine,
+                                leftLaserTurretHolder, leftLaserTurretPrefab, leftLaserTurretYRotation);
 
         // Generate Damaged Roadblock Interactables
-        GenerateDamagedRoadblocks();
-
+        GenerateInteractables("roadblock", roadblockZPosGapRange[0], roadblockZPosGapRange[1], roadblockMaxPerLine,
+                                roadblockHolder, roadblockPrefab, roadblockYRotation);
         // Generate Roadblock Interactables
-        GenerateRoadblocks();
-
-        // Generate Coin Interactables
-        GenerateCoins();
-
+        GenerateInteractables("damagedRoadblock", damagedRoadblockZPosGapRange[0], damagedRoadblockZPosGapRange[1], damagedRoadblockMaxPerLine,
+                                damagedRoadblockHolder, damagedRoadblockPrefab, damagedRoadblockYRotation);
+        // // Generate Coin Interactables
+        GenerateInteractables("coin", coinZPosGapRange[0], coinZPosGapRange[1], coinMaxPerLine, coinHolder, coinPrefab, coinYRotation);
     }
 
     private void DestroyExistingInteractables()
@@ -94,52 +88,78 @@ public class InteractablesController : MonoBehaviour
         }
     }
 
-    private void GenerateLaserTurrets()
+    private void GenerateInteractables(string interactableToGenerate, float interactableZPosGapLowRange, float interactableZPosGapHighRange,
+    int interactableMaxPerLine, Transform interactableHolder, GameObject interactablePrefab, float interactableYRotation)
     {
+        float currentZPos = GameManager.singleton.startLine.position.z;
+        currentZPos += Mathf.Round(Random.Range(interactableZPosGapLowRange, interactableZPosGapHighRange));
 
+        float interactableXPos;
+        List<float> chosenXPos = new List<float>();
+        int generateAttempts = 0;
+        bool validPosition = false;
+
+        do
+        {
+            interactableXPos = GetInteractableXPos(interactableToGenerate);
+
+            while (chosenXPos.Count < interactableMaxPerLine && generateAttempts < maxInteractablesGenerateAttempts)
+            {
+                while (!validPosition && generateAttempts < maxInteractablesGenerateAttempts)
+                {
+                    generateAttempts++;
+                    if (!chosenXPos.Contains(interactableXPos))
+                        chosenXPos.Add(interactableXPos);
+
+                    validPosition = !isPosColliderExist(new Vector3(interactableXPos, interactableYPos, currentZPos), interactableToGenerate);
+
+                    if (!validPosition)
+                        interactableXPos = GetInteractableXPos(interactableToGenerate);
+                    // break;
+                }
+
+                if (validPosition)
+                {
+                    Instantiate(interactablePrefab, new Vector3(interactableXPos, interactableYPos, currentZPos),
+                                Quaternion.Euler(0f, interactableYRotation, 0),
+                                interactableHolder);
+                }
+
+                validPosition = false;
+                // break;
+            }
+
+            generateAttempts = 0;
+            chosenXPos.Clear();
+            currentZPos += Mathf.Round(Random.Range(interactableZPosGapLowRange, interactableZPosGapHighRange));
+        } while (currentZPos < GameManager.singleton.finishLine.position.z);
     }
 
-    private void GenerateDamagedRoadblocks()
+    private float GetInteractableXPos(string interactableToGenerate)
     {
+        switch (interactableToGenerate)
+        {
+            case "coin":
+                return coinXPositions[Random.Range(0, coinXPositions.Length)];
 
+            case "roadblock":
+                return roadblockXPositions[Random.Range(0, roadblockXPositions.Length)];
+
+            case "damagedRoadblock":
+                return damagedRoadblockXPositions[Random.Range(0, damagedRoadblockXPositions.Length)];
+
+            case "laser":
+                return laserXPositions[Random.Range(0, laserXPositions.Length)];
+
+            default:
+                break;
+        }
+        return 0;
     }
 
-    private void GenerateRoadblocks()
+    private bool isPosColliderExist(Vector3 position, string interactableToGenerate)
     {
-
-    }
-
-    private void GenerateCoins()
-    {
-        // int positionX;
-        // int positionZ;
-
-        // GameObject gameObject;
-
-        // for (int i = 0; i < size; i++)
-        // {
-        //     while (true)
-        //     {
-        //         positionX = UnityEngine.Random.Range(0, GridWidth);
-        //         positionZ = UnityEngine.Random.Range(0, GridHeight);
-
-        //         if (!IsCellOccupied(new Vector3(positionX, positionY, positionZ)))
-        //         {
-        //             gameObject = Instantiate(prefab, new Vector3(positionX, positionY, positionZ), Quaternion.identity, parent);
-        //             createdGameObjectsList.Add(gameObject);
-        //             break;
-        //         }
-        //         else
-        //         {
-        //             Debug.Log("Cell Occupied at: (" + positionX + ", " + positionY + ", " + positionZ + ") - Recreating: " + prefab.name);
-        //         }
-        //     }
-        // }
-    }
-
-    private bool isPosColliderExist(Vector3 position, string objToGenerate)
-    {
-        switch (objToGenerate)
+        switch (interactableToGenerate)
         {
             case "coin":
                 if (Physics.CheckBox(position, coinColliderHalfSize))
@@ -162,7 +182,6 @@ public class InteractablesController : MonoBehaviour
             default:
                 break;
         }
-
         return false;
     }
 }

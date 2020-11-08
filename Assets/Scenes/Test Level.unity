@@ -5450,6 +5450,71 @@ Transform:
   m_Father: {fileID: 1415290350}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &748152670
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3706705833868935121, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051847673115862379, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_Name
+      value: Right Laser Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051847673115862379, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
 --- !u!4 &868698790 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5906341140486628493, guid: e174c7e803d03f040b10cd33d96667e4, type: 3}
@@ -5835,7 +5900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ebbf95b3482e94b96e7b1083f587f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yPos: 0
+  interactableYPos: 0
+  maxInteractablesGenerateAttempts: 6
   coinPrefab: {fileID: 8683115621609227637, guid: 239bcf05fd4b4b84d8eb584c9e78d8be, type: 3}
   coinHolder: {fileID: 313912745}
   coinColliderHalfSize: {x: 0.5, y: 0.5, z: 0.25}
@@ -5848,6 +5914,8 @@ MonoBehaviour:
   coinZPosGapRange:
   - 2
   - 4
+  coinMaxPerLine: 2
+  coinYRotation: 0
   roadblockPrefab: {fileID: 8322049048141566065, guid: cb98aa8adc6a06349bf5c434c8ee4317, type: 3}
   roadblockHolder: {fileID: 738576572}
   roadblockColliderHalfSize: {x: 0.82, y: 1.14, z: 1}
@@ -5860,6 +5928,8 @@ MonoBehaviour:
   roadblockZPosGapRange:
   - 6
   - 8
+  roadblockMaxPerLine: 3
+  roadblockYRotation: 90
   damagedRoadblockPrefab: {fileID: 4546317339463591452, guid: 4dcee2bbe4394574a8fb79a7f938c385, type: 3}
   damagedRoadblockHolder: {fileID: 970815434}
   damagedRoadblockColliderHalfSize: {x: 0.82, y: 1.14, z: 2}
@@ -5870,16 +5940,21 @@ MonoBehaviour:
   damagedRoadblockZPosGapRange:
   - 6
   - 10
+  damagedRoadblockMaxPerLine: 1
+  damagedRoadblockYRotation: 90
   laserXPositions:
   - -6
   - 6
   laserZPosGapRange:
   - 12
   - 16
+  laserMaxPerLine: 1
   leftLaserTurretPrefab: {fileID: 4051847673115862379, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
   leftLaserTurretHolder: {fileID: 1330336118}
-  rightLaserTurretPrefab: {fileID: 4272100539962859333, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
+  leftLaserTurretYRotation: 90
+  rightLaserTurretPrefab: {fileID: 4051847673115862379, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
   rightLaserTurretHolder: {fileID: 968586334}
+  rightLaserTurretYRotation: -90
 --- !u!4 &1429048799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8847816727174216934, guid: ac346e28baf58c6478ded8a890065bb0, type: 3}
@@ -11422,6 +11497,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8683115621609227637, guid: 239bcf05fd4b4b84d8eb584c9e78d8be, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 239bcf05fd4b4b84d8eb584c9e78d8be, type: 3}
 --- !u!1 &2135342298
@@ -11662,63 +11741,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1001 &248402989177359943
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3459429043568231935, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3459429043568231935, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3459429043568231935, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 3459429043568231935, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3459429043568231935, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3459429043568231935, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3459429043568231935, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3459429043568231935, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
-      propertyPath: m_RootOrder
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 3459429043568231935, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3459429043568231935, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3459429043568231935, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272100539962859333, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
-      propertyPath: m_Name
-      value: Right Laser Turret
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3be09b75981b1fb4dbfa0352292bc190, type: 3}
 --- !u!1001 &1986061494271485670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11766,6 +11788,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Parent Floor
       objectReference: {fileID: 0}
+    - target: {fileID: 1986061495599602747, guid: f2b0b876d22ba6041813b361b1d577b0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce6a1eb38378d0146b2b0a27aceefedc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2b0b876d22ba6041813b361b1d577b0, type: 3}
 --- !u!1001 &3735360243538122652
@@ -11811,6 +11837,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Damaged Roadblock
       objectReference: {fileID: 0}
+    - target: {fileID: 4546317339463591452, guid: 4dcee2bbe4394574a8fb79a7f938c385, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dcee2bbe4394574a8fb79a7f938c385, type: 3}
 --- !u!1001 &3817473775179382044
@@ -11830,7 +11860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3706705833868935121, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 45
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3706705833868935121, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
       propertyPath: m_LocalRotation.x
@@ -11864,9 +11894,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706705833868935121, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4051847673115862379, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
       propertyPath: m_Name
       value: Left Laser Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051847673115862379, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
@@ -11970,6 +12016,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin
       objectReference: {fileID: 0}
+    - target: {fileID: 8683115621609227637, guid: 239bcf05fd4b4b84d8eb584c9e78d8be, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 239bcf05fd4b4b84d8eb584c9e78d8be, type: 3}
 --- !u!1001 &8847816728463798585
@@ -12039,6 +12089,10 @@ PrefabInstance:
     - target: {fileID: 8322049048141566065, guid: cb98aa8adc6a06349bf5c434c8ee4317, type: 3}
       propertyPath: m_Name
       value: Roadblock
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322049048141566065, guid: cb98aa8adc6a06349bf5c434c8ee4317, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8662123204005546699, guid: cb98aa8adc6a06349bf5c434c8ee4317, type: 3}
       propertyPath: m_LocalPosition.x
