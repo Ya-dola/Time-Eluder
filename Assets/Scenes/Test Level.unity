@@ -5691,36 +5691,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe2f97d31f7e2249aed9283e36ca671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &968586333
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 968586334}
-  m_Layer: 0
-  m_Name: Right Laser Turret Holder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &968586334
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 968586333}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1415290350}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &970815433
 GameObject:
   m_ObjectHideFlags: 0
@@ -5832,7 +5802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1330336118}
   m_Layer: 0
-  m_Name: Left Laser Turret Holder
+  m_Name: Laser Turret Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5884,7 +5854,6 @@ Transform:
   - {fileID: 738576572}
   - {fileID: 970815434}
   - {fileID: 1330336118}
-  - {fileID: 968586334}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5942,6 +5911,10 @@ MonoBehaviour:
   - 10
   damagedRoadblockMaxPerLine: 1
   damagedRoadblockYRotation: 90
+  laserTurretPrefabs:
+  - {fileID: 4051847673115862379, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
+  - {fileID: 4051847673115862379, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
+  laserTurretHolder: {fileID: 1330336118}
   laserXPositions:
   - -6
   - 6
@@ -5949,12 +5922,9 @@ MonoBehaviour:
   - 12
   - 16
   laserMaxPerLine: 1
-  leftLaserTurretPrefab: {fileID: 4051847673115862379, guid: 4cc580d7b30e94246aec791dad1062df, type: 3}
-  leftLaserTurretHolder: {fileID: 1330336118}
-  leftLaserTurretYRotation: 90
-  rightLaserTurretPrefab: {fileID: 4051847673115862379, guid: 7051341cf6cb3f946b045b0af68ecf41, type: 3}
-  rightLaserTurretHolder: {fileID: 968586334}
-  rightLaserTurretYRotation: -90
+  laserTurretYRotations:
+  - 90
+  - -90
 --- !u!4 &1429048799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8847816727174216934, guid: ac346e28baf58c6478ded8a890065bb0, type: 3}
@@ -12043,7 +12013,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8847816727174216934, guid: ac346e28baf58c6478ded8a890065bb0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 260
+      value: 280
       objectReference: {fileID: 0}
     - target: {fileID: 8847816727174216934, guid: ac346e28baf58c6478ded8a890065bb0, type: 3}
       propertyPath: m_LocalRotation.x

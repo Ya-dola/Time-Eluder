@@ -35,20 +35,13 @@ public class InteractablesController : MonoBehaviour
     public int damagedRoadblockMaxPerLine;
     public float damagedRoadblockYRotation;
 
-    [Header("Common Laser Turrets")]
+    [Header("Laser Turrets")]
+    public GameObject[] laserTurretPrefabs;
+    public Transform laserTurretHolder;
     public float[] laserXPositions;
     public float[] laserZPosGapRange;
     public int laserMaxPerLine;
-
-    [Header("Left Laser Turret")]
-    public GameObject leftLaserTurretPrefab;
-    public Transform leftLaserTurretHolder;
-    public float leftLaserTurretYRotation;
-
-    [Header("Right Laser Turret")]
-    public GameObject rightLaserTurretPrefab;
-    public Transform rightLaserTurretHolder;
-    public float rightLaserTurretYRotation;
+    public float[] laserTurretYRotations;
 
 
     // Start is called before the first frame update
@@ -57,9 +50,8 @@ public class InteractablesController : MonoBehaviour
         // Destroying Existing Interactables
         DestroyExistingInteractables();
 
-        // Generate Left or right Laser Turret Interactables
-        GenerateInteractables("laser", laserZPosGapRange[0], laserZPosGapRange[1], laserMaxPerLine,
-                                leftLaserTurretHolder, leftLaserTurretPrefab, leftLaserTurretYRotation);
+        // Generate Left or Right Laser Turret Interactables
+        GenerateLasers();
 
         // Generate Damaged Roadblock Interactables
         GenerateInteractables("roadblock", roadblockZPosGapRange[0], roadblockZPosGapRange[1], roadblockMaxPerLine,
@@ -73,8 +65,7 @@ public class InteractablesController : MonoBehaviour
 
     private void DestroyExistingInteractables()
     {
-        DestroyGameObjectChildren(leftLaserTurretHolder);
-        DestroyGameObjectChildren(rightLaserTurretHolder);
+        DestroyGameObjectChildren(laserTurretHolder);
         DestroyGameObjectChildren(damagedRoadblockHolder);
         DestroyGameObjectChildren(roadblockHolder);
         DestroyGameObjectChildren(coinHolder);
@@ -148,8 +139,8 @@ public class InteractablesController : MonoBehaviour
             case "damagedRoadblock":
                 return damagedRoadblockXPositions[Random.Range(0, damagedRoadblockXPositions.Length)];
 
-            case "laser":
-                return laserXPositions[Random.Range(0, laserXPositions.Length)];
+            // case "laser":
+            //     return laserXPositions[Random.Range(0, laserXPositions.Length)];
 
             default:
                 break;
@@ -176,12 +167,37 @@ public class InteractablesController : MonoBehaviour
                     return true;
                 break;
 
-            case "laser":
-                break;
+            // case "laser":
+            //     break;
 
             default:
                 break;
         }
         return false;
+    }
+
+    private void GenerateLasers()
+    {
+        float currentZPos = GameManager.singleton.startLine.position.z;
+        currentZPos += Mathf.Round(Random.Range(laserZPosGapRange[0], laserZPosGapRange[1]));
+
+        float laserXPos;
+        int laserIndex = 0;
+
+        do
+        {
+            laserIndex = GetLaserIndex();
+            laserXPos = laserXPositions[laserIndex];
+
+            Instantiate(laserTurretPrefabs[laserIndex], new Vector3(laserXPos, interactableYPos, currentZPos),
+                        Quaternion.Euler(0f, laserTurretYRotations[laserIndex], 0), laserTurretHolder);
+
+            currentZPos += Mathf.Round(Random.Range(laserZPosGapRange[0], laserZPosGapRange[1]));
+        } while (currentZPos < GameManager.singleton.finishLine.position.z);
+    }
+
+    private int GetLaserIndex()
+    {
+        return Random.Range(0, laserXPositions.Length);
     }
 }
