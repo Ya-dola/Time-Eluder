@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public CameraController cameraController;
     public float minCamDistance;
     public float maxCamDistance;
-    
+
     [Header("Camera Background")]
     public BackgroundController backgroundController;
 
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     // [Header("UI Text")]
     // public GameObject youWonText;
     // public GameObject youDiedText;
-    
+
     [Header("Enviroment")]
     public float sideWallDistance;
     public int environmentWalkingSpeed;

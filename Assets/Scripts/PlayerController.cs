@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         if (GameManager.singleton.GameEnded)
             return;
 
-        // Make the player move when game starts 
+        // Make the player move at environment walking speed when game starts 
         if (GameManager.singleton.GameStarted)
             playerRigBody.MovePosition(transform.position + Vector3.forward * GameManager.singleton.environmentWalkingSpeed * Time.fixedDeltaTime);
 

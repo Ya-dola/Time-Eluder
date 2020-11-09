@@ -9,6 +9,12 @@ public class CoinController : MonoBehaviour
     public float coinCollectSoundVolume;
     private void OnTriggerEnter(Collider collider)
     {
+        // To check if the player collided with the coin
+        PlayerController playerController = collider.GetComponent<PlayerController>();
+
+        if (!playerController)
+            return;
+
         GameManager.singleton.AddCoinCollected();
 
         // Plays the sound between the Camera's position and the coin's position
