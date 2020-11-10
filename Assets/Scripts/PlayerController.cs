@@ -112,8 +112,7 @@ public class PlayerController : MonoBehaviour
 
     private void ActivatePlayerDash()
     {
-
-        if (joystick.Vertical > joystickAbilityZone && GameManager.singleton.isDashCooldown == false)
+        if (joystick.Vertical > joystickAbilityZone && GameManager.singleton.isDashCooldown == false && GameManager.singleton.playerDashCount > 0)
         {
             GameManager.singleton.isDashCooldown = true;
             GameManager.singleton.darkDashImage.fillAmount = 1;
@@ -140,6 +139,8 @@ public class PlayerController : MonoBehaviour
         float startTime = Time.time;
 
         // Debug.Log("Dash Activated !!!");
+
+        GameManager.singleton.playerDashCount--;
 
         while (Time.time < startTime + playerDashTime)
         {

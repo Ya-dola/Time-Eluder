@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     [Header("Abilities")]
     public Image darkDashImage;
     public float playerDashCooldown;
+    public TextMeshProUGUI dashCountText;
+    public int playerDashCount { get; set; }
     public bool isDashCooldown { get; set; }
     public Image darkSlowTimeImage;
     public float playerSlowTimeCooldown;
@@ -117,12 +119,19 @@ public class GameManager : MonoBehaviour
 
         // Score Updates
         scoreText.text = "Score: " + currentScore;
+
+        // Dash Count Updates
+        dashCountText.text = "" + playerDashCount;
     }
 
     public void AddCoinCollected()
     {
         // Score Update on collecting a coin
         currentScore += coinScoreValue;
+
+        // Dash Count Increases every 4 coins collected
+        if (currentScore % 4 == 0)
+            playerDashCount++;
 
         if (currentScore > highScore)
         {
@@ -202,7 +211,7 @@ public class GameManager : MonoBehaviour
         else
             dashedLines.transform.Translate(0, 20f, 0);
 
-        // Add dashedLineToggle.isOn to Player Preferences
+        // TODO - Add dashedLineToggle.isOn to Player Preferences
     }
 
     private void AddSlowMotionEffect(string method, int slowMotionTime)
