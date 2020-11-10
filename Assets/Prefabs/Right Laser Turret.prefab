@@ -908,6 +908,7 @@ GameObject:
   - component: {fileID: 2588489851966060635}
   - component: {fileID: 6755817972808406405}
   - component: {fileID: 3817473775836682294}
+  - component: {fileID: 8660453945449727534}
   m_Layer: 0
   m_Name: Laser Bottom
   m_TagString: Untagged
@@ -991,6 +992,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.057600018, y: 0.05760001, z: 0.057599995}
   m_Center: {x: 0, y: -0.029000478, z: -0.000000055879354}
+--- !u!114 &8660453945449727534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4236214059546374887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3110174a91a8ef04da9c8952dbc3c45c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4989558233506173552
 GameObject:
   m_ObjectHideFlags: 0
@@ -2802,6 +2815,7 @@ GameObject:
   - component: {fileID: 6015458720182900450}
   - component: {fileID: 3857161397499706073}
   - component: {fileID: 3817473775836682293}
+  - component: {fileID: 766377104019619499}
   m_Layer: 0
   m_Name: Laser Top
   m_TagString: Untagged
@@ -2885,6 +2899,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.057600018, y: 0.05760001, z: 0.057599995}
   m_Center: {x: 0, y: -0.029000478, z: -0.00000012293458}
+--- !u!114 &766377104019619499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9077939442348787583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3110174a91a8ef04da9c8952dbc3c45c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9161508736117876423
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 284791867115205379}
   - component: {fileID: 2600617645560727497}
   - component: {fileID: 3735360242374941519}
+  - component: {fileID: 7783639030136059909}
   m_Layer: 0
   m_Name: Damaged Roadblock
   m_TagString: Damaged Roadblock
@@ -95,3 +96,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.82, y: 1.14, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7783639030136059909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4546317339463591452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3110174a91a8ef04da9c8952dbc3c45c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

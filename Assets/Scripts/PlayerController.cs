@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Movement")]
-    public FloatingJoystick floatingJoystick;
+    public FixedJoystick joystick;
+    // public FloatingJoystick joystick;
     public Rigidbody playerRigBody;
 
     [Header("Joystick")]
@@ -48,16 +49,16 @@ public class PlayerController : MonoBehaviour
             playerRigBody.MovePosition(transform.position + Vector3.forward * GameManager.singleton.environmentWalkingSpeed * Time.fixedDeltaTime);
 
         // General Movement of Player
-        if (floatingJoystick.Vertical > joystickDeadZone)
+        if (joystick.Vertical > joystickDeadZone)
             verticalJoystickValue = 1;
-        else if (floatingJoystick.Vertical < -joystickDeadZone)
+        else if (joystick.Vertical < -joystickDeadZone)
             verticalJoystickValue = -1;
         else
             verticalJoystickValue = 0;
 
-        if (floatingJoystick.Horizontal > joystickDeadZone)
+        if (joystick.Horizontal > joystickDeadZone)
             horizontalJoystickValue = 1;
-        else if (floatingJoystick.Horizontal < -joystickDeadZone)
+        else if (joystick.Horizontal < -joystickDeadZone)
             horizontalJoystickValue = -1;
         else
             horizontalJoystickValue = 0;
@@ -112,7 +113,7 @@ public class PlayerController : MonoBehaviour
     private void ActivatePlayerDash()
     {
 
-        if (floatingJoystick.Vertical > joystickAbilityZone && GameManager.singleton.isDashCooldown == false)
+        if (joystick.Vertical > joystickAbilityZone && GameManager.singleton.isDashCooldown == false)
         {
             GameManager.singleton.isDashCooldown = true;
             GameManager.singleton.darkDashImage.fillAmount = 1;
