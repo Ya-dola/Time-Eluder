@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager singleton;
     public bool GameStarted { get; private set; }
     public bool GameEnded { get; private set; }
+    public bool GamePaused { get; private set; }
 
     [Header("Player")]
     [SerializeField] private PlayerController playerController;
@@ -26,6 +27,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float slowMotionFactor = 0.1f;
     [SerializeField] private float deltaTime = 0.02f;
     [SerializeField] private int transitionTime = 3;
+
+    // Pause Menu
+    [Header("Pause Menu")]
+    public GameObject pauseMenu;
+    public Toggle dashedLineToggle;
 
     // Abilities Management
     [Header("Abilities")]
@@ -51,6 +57,7 @@ public class GameManager : MonoBehaviour
     public int environmentWalkingSpeed;
     public Transform startLine;
     public Transform finishLine;
+    public GameObject dashedLines;
 
     // Player Distance Management
     public float entireDistance { get; private set; }
@@ -141,6 +148,18 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void PauseOrResumeGame()
+    {
+        GamePaused = !GamePaused;
+
+        pauseMenu.SetActive(GamePaused);
+
+        if (GamePaused)
+            Time.timeScale = 0f;
+        else
+            Time.timeScale = 1f;
+    }
+
     // TODO - Change how this works to be easier to reuse
     public void EndGame(bool gameWon)
     {
@@ -162,10 +181,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void QuitGame()
+    {
+        // Written to show as Application.Quit doesnt do anything in Editor
+        Debug.Log("Quit the Game !!!");
+
+        Application.Quit();
+    }
+
     public void RestartGame()
     {
         // Scene Numbers are according to those shown in Build
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+
+    public void DashedLineToggleChanged()
+    {
+        if (dashedLineToggle.isOn)
+            dashedLines.transform.Translate(0, -20f, 0);
+        else
+            dashedLines.transform.Translate(0, 20f, 0);
+
+        // Add dashedLineToggle.isOn to Player Preferences
     }
 
     private void AddSlowMotionEffect(string method, int slowMotionTime)
