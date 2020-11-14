@@ -88,6 +88,8 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetBool("GameStarted", GameManager.singleton.GameStarted);
         playerAnimator.SetBool("GameWon", GameManager.singleton.GameWon);
         playerAnimator.SetBool("GameLost", GameManager.singleton.GameLost);
+        playerAnimator.SetFloat("JoyPosX", joystick.Horizontal);
+        playerAnimator.SetFloat("JoyPosY", joystick.Vertical);
     }
 
     // Late Update used mainly for Camera Calculations and Calculations that need to occur after movement has occured
