@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager singleton;
     public bool GameStarted { get; private set; }
+    public bool GameWon { get; private set; }
+    public bool GameLost { get; private set; }
     public bool GameEnded { get; private set; }
     public bool GamePaused { get; private set; }
 
@@ -97,7 +99,7 @@ public class GameManager : MonoBehaviour
         // Score Value
         currentScore = 0;
 
-        // Signals the Game has started and only runs it once if the game has already started
+        // TODO - Signals the Game has started and only runs it once if the game has already started - To be removed
         if (!GameManager.singleton.GameStarted)
             GameManager.singleton.StartGame();
 
@@ -176,6 +178,7 @@ public class GameManager : MonoBehaviour
 
         if (!gameWon)
         {
+            GameLost = true;
             AddSlowMotionEffect("RestartGame", transitionTime);
 
             // Debug.Log("Death Obstracle hit !!!");
@@ -183,6 +186,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            GameWon = true;
             Invoke("RestartGame", transitionTime);
 
             // Debug.Log("Finish Line Reached !!!");

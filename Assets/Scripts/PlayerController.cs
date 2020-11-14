@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
     [Header("Player Movement")]
     public FixedJoystick joystick;
     // public FloatingJoystick joystick;
-    public Rigidbody playerRigBody;
+    private Rigidbody playerRigBody;
+    private Animator playerAnimator;
 
     [Header("Joystick")]
     [Range(0, 1)]
@@ -29,13 +30,12 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        // Setting Default Values 
         verticalJoystickValue = 0;
         horizontalJoystickValue = 0;
-    }
 
-    void Update()
-    {
-
+        playerRigBody = GetComponent<Rigidbody>();
+        playerAnimator = GetComponentInChildren<Animator>();
     }
 
     public void FixedUpdate()
@@ -80,6 +80,14 @@ public class PlayerController : MonoBehaviour
 
         // Dashing Logic for Player
         ActivatePlayerDash();
+    }
+
+
+    void Update()
+    {
+        playerAnimator.SetBool("GameStarted", GameManager.singleton.GameStarted);
+        playerAnimator.SetBool("GameWon", GameManager.singleton.GameWon);
+        playerAnimator.SetBool("GameLost", GameManager.singleton.GameLost);
     }
 
     // Late Update used mainly for Camera Calculations and Calculations that need to occur after movement has occured
