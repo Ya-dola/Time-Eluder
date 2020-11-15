@@ -87,7 +87,6 @@ public class PlayerController : MonoBehaviour
         ActivatePlayerDash();
     }
 
-
     void Update()
     {
         playerAnimator.SetBool("GameStarted", GameManager.singleton.GameStarted);

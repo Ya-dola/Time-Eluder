@@ -108,3 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3110174a91a8ef04da9c8952dbc3c45c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCollisionSound: {fileID: 8300000, guid: aa61d74fca452c1499fd69997253a8c8, type: 3}
+  playerCollisionSoundVolume: 0.8
