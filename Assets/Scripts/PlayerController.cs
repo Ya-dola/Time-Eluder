@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     // public FloatingJoystick joystick;
     private Rigidbody playerRigBody;
     private Animator playerAnimator;
+    private ParticleSystem playerSmokeParticles;
 
     [Header("Joystick")]
     [Range(0, 1)]
@@ -25,6 +26,9 @@ public class PlayerController : MonoBehaviour
     public float playerDashSpeed;
     public float playerDashTime;
 
+    [Header("Smoke Particles")]
+    public float dashSmokeEmissionOverDistance;
+
     private float verticalJoystickValue;
     private float horizontalJoystickValue;
 
@@ -36,6 +40,7 @@ public class PlayerController : MonoBehaviour
 
         playerRigBody = GetComponent<Rigidbody>();
         playerAnimator = GetComponentInChildren<Animator>();
+        playerSmokeParticles = GetComponentInChildren<ParticleSystem>();
     }
 
     public void FixedUpdate()
@@ -131,11 +136,10 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(PlayerDash());
         }
 
+        // Dash Cooling Down
         if (GameManager.singleton.isDashCooldown)
         {
             GameManager.singleton.darkDashImage.fillAmount -= 1 / GameManager.singleton.playerDashCooldown * Time.deltaTime;
-
-            // Debug.Log("Dash Cooling Down !!!");
 
             if (GameManager.singleton.darkDashImage.fillAmount <= 0)
             {
@@ -151,6 +155,8 @@ public class PlayerController : MonoBehaviour
 
         // Dash Activated
         GameManager.singleton.DashStarted();
+        var dashSmokeEmission = playerSmokeParticles.emission;
+        dashSmokeEmission.rateOverDistance = dashSmokeEmissionOverDistance;
 
         GameManager.singleton.playerDashCount--;
 
@@ -164,5 +170,7 @@ public class PlayerController : MonoBehaviour
 
         // Dash Deactivated
         GameManager.singleton.DashEnded();
+        var smokeEmission = playerSmokeParticles.emission;
+        smokeEmission.rateOverDistance = 0;
     }
 }
