@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetBool("GameStarted", GameManager.singleton.GameStarted);
         playerAnimator.SetBool("GameWon", GameManager.singleton.GameWon);
         playerAnimator.SetBool("GameLost", GameManager.singleton.GameLost);
+        playerAnimator.SetBool("DashStatus", GameManager.singleton.DashStatus);
         playerAnimator.SetFloat("JoyPosX", joystick.Horizontal);
         playerAnimator.SetFloat("JoyPosY", joystick.Vertical);
     }
@@ -148,7 +149,8 @@ public class PlayerController : MonoBehaviour
     {
         float startTime = Time.time;
 
-        // Debug.Log("Dash Activated !!!");
+        // Dash Activated
+        GameManager.singleton.DashStarted();
 
         GameManager.singleton.playerDashCount--;
 
@@ -159,5 +161,8 @@ public class PlayerController : MonoBehaviour
 
             yield return null;
         }
+
+        // Dash Deactivated
+        GameManager.singleton.DashEnded();
     }
 }

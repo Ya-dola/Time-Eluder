@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public bool GameLost { get; private set; }
     public bool GameEnded { get; private set; }
     public bool GamePaused { get; private set; }
+    public bool DashStatus { get; private set; }
 
     [Header("Player")]
     [SerializeField] private PlayerController playerController;
@@ -226,5 +227,15 @@ public class GameManager : MonoBehaviour
         // Creates Slow motion time flow effect 
         Time.timeScale = slowMotionFactor;
         Time.fixedDeltaTime = deltaTime * Time.timeScale;
+    }
+
+    public void DashStarted()
+    {
+        DashStatus = true;
+    }
+    
+    public void DashEnded()
+    {
+        DashStatus = false;
     }
 }
