@@ -222,7 +222,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         // Scene Numbers are according to those shown in Build
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Game Scene");
     }
 
     public void DashedLineToggleChanged()
