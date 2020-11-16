@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
     public void EndGame(bool gameWon)
     {
         GameEnded = true;
-        
+
         // Stops Player Running Sound in the background
         playerController.playerRunningAudioSource.Stop();
 
@@ -228,9 +228,9 @@ public class GameManager : MonoBehaviour
     public void DashedLineToggleChanged()
     {
         if (dashedLineToggle.isOn)
-            dashedLines.transform.Translate(0, -20f, 0);
+            dashedLines.transform.Translate(0, -100f, 0);
         else
-            dashedLines.transform.Translate(0, 20f, 0);
+            dashedLines.transform.Translate(0, 100f, 0);
 
         // TODO - Add dashedLineToggle.isOn to Player Preferences
     }
