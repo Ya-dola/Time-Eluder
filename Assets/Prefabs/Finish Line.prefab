@@ -109,3 +109,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3f1c08efe07a243a9ef069dd12c6c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameWonSound: {fileID: 8300000, guid: d29d45abeb22db341b1058a32cb05e81, type: 3}
+  gameWonSoundVolume: 0.8

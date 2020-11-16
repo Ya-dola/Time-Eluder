@@ -13655,6 +13655,14 @@ PrefabInstance:
       propertyPath: joystick
       value: 
       objectReference: {fileID: 632926773}
+    - target: {fileID: 6846963292301421720, guid: 97b34cc0ade1fcc44adadfcd3d5f2f6f, type: 3}
+      propertyPath: playerFinishSoundVolume
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6846963292301421720, guid: 97b34cc0ade1fcc44adadfcd3d5f2f6f, type: 3}
+      propertyPath: playerFinishSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d29d45abeb22db341b1058a32cb05e81, type: 3}
     - target: {fileID: 7009400885933878949, guid: 97b34cc0ade1fcc44adadfcd3d5f2f6f, type: 3}
       propertyPath: m_RootOrder
       value: 3

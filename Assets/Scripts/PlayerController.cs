@@ -31,9 +31,6 @@ public class PlayerController : MonoBehaviour
     public float dashSmokeEmissionOverDistance;
 
     [Header("Sounds")]
-    // public AudioClip playerRunningSound;
-    // [Range(0, 1)]
-    // public float playerRunningSoundVolume;
     public AudioClip playerDashSound;
     [Range(0, 1)]
     public float playerDashSoundVolume;
