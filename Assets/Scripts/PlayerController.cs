@@ -154,6 +154,7 @@ public class PlayerController : MonoBehaviour
 
         // Dash Activated
         GameManager.singleton.DashStarted();
+
         var dashSmokeEmission = playerSmokeParticles.emission;
         dashSmokeEmission.rateOverDistance = dashSmokeEmissionOverDistance;
 
@@ -169,7 +170,6 @@ public class PlayerController : MonoBehaviour
 
         // Dash Deactivated
         GameManager.singleton.DashEnded();
-        var smokeEmission = playerSmokeParticles.emission;
-        smokeEmission.rateOverDistance = 0;
+        dashSmokeEmission.rateOverDistance = 0;
     }
 }
