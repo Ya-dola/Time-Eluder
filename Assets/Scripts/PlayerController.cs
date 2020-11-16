@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRigBody;
     private Animator playerAnimator;
     private ParticleSystem playerSmokeParticles;
+    public AudioSource playerRunningAudioSource { get; private set; }
 
     [Header("Joystick")]
     [Range(0, 1)]
@@ -29,6 +30,14 @@ public class PlayerController : MonoBehaviour
     [Header("Smoke Particles")]
     public float dashSmokeEmissionOverDistance;
 
+    [Header("Sounds")]
+    // public AudioClip playerRunningSound;
+    // [Range(0, 1)]
+    // public float playerRunningSoundVolume;
+    public AudioClip playerDashSound;
+    [Range(0, 1)]
+    public float playerDashSoundVolume;
+
     private float verticalJoystickValue;
     private float horizontalJoystickValue;
 
@@ -41,6 +50,7 @@ public class PlayerController : MonoBehaviour
         playerRigBody = GetComponent<Rigidbody>();
         playerAnimator = GetComponentInChildren<Animator>();
         playerSmokeParticles = GetComponentInChildren<ParticleSystem>();
+        playerRunningAudioSource = GetComponent<AudioSource>();
     }
 
     public void FixedUpdate()
@@ -157,6 +167,9 @@ public class PlayerController : MonoBehaviour
 
         var dashSmokeEmission = playerSmokeParticles.emission;
         dashSmokeEmission.rateOverDistance = dashSmokeEmissionOverDistance;
+
+        // Plays the sound between the Camera's position and the Player's position
+        AudioSource.PlayClipAtPoint(playerDashSound, 0.9f * Camera.main.transform.position + 0.1f * transform.position, playerDashSoundVolume);
 
         GameManager.singleton.playerDashCount--;
 

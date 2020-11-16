@@ -148,6 +148,9 @@ public class GameManager : MonoBehaviour
     {
         GameStarted = true;
 
+        // Plays Player Running Sound in the background
+        playerController.playerRunningAudioSource.Play();
+
         // TODO - Change to have a Button in UI to start the game
         // Base the buttons off of what was used in Grid Generator
         // if (Input.GetKeyDown("w"))
@@ -167,15 +170,28 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(GamePaused);
 
         if (GamePaused)
+        {
             Time.timeScale = 0f;
+
+            // Pauses Player Running Sound in the background
+            playerController.playerRunningAudioSource.Pause();
+        }
         else
+        {
             Time.timeScale = 1f;
+
+            // Plays Player Running Sound in the background
+            playerController.playerRunningAudioSource.Play();
+        }
     }
 
     // TODO - Change how this works to be easier to reuse
     public void EndGame(bool gameWon)
     {
         GameEnded = true;
+        
+        // Stops Player Running Sound in the background
+        playerController.playerRunningAudioSource.Stop();
 
         if (!gameWon)
         {
@@ -233,7 +249,7 @@ public class GameManager : MonoBehaviour
     {
         DashStatus = true;
     }
-    
+
     public void DashEnded()
     {
         DashStatus = false;
