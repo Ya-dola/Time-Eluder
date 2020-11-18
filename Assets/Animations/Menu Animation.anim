@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pause Animation
+  m_Name: Menu Animation
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -31,7 +31,7 @@ AnimationClip:
         outWeight: 0.4396975
       - serializedVersion: 3
         time: 0.5
-        value: 0.392
+        value: 0.4
         inSlope: 0.3761641
         outSlope: 0.3761641
         tangentMode: 0
@@ -96,7 +96,7 @@ AnimationClip:
         outWeight: 0.4396975
       - serializedVersion: 3
         time: 0.5
-        value: 0.392
+        value: 0.4
         inSlope: 0.3761641
         outSlope: 0.3761641
         tangentMode: 0

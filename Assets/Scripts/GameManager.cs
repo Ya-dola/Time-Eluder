@@ -31,12 +31,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float deltaTime = 0.02f;
     [SerializeField] private int transitionTime = 3;
 
-    // Pause Menu
-    [Header("Pause Menu")]
-    public GameObject pauseMenu;
-    public Toggle dashedLineToggle;
-
-    // Abilities Management
     [Header("Abilities")]
     public Image darkDashImage;
     public float playerDashCooldown;
@@ -45,6 +39,8 @@ public class GameManager : MonoBehaviour
     public bool isDashCooldown { get; set; }
     public Image darkSlowTimeImage;
     public float playerSlowTimeCooldown;
+    public TextMeshProUGUI slowTimeCountText;
+    public int slowTimeCount { get; set; }
     public bool isSlowTimeCooldown { get; set; }
 
     [Header("Score")]
@@ -53,9 +49,15 @@ public class GameManager : MonoBehaviour
     public int highScore { get; set; }
     public int coinScoreValue;
 
-    // [Header("UI Text")]
-    // public GameObject youWonText;
-    // public GameObject youDiedText;
+    [Header("Pause Menu")]
+    public GameObject pauseMenu;
+    public Toggle dashedLineToggle;
+
+    [Header("End Game Menu")]
+    public GameObject gameWonMenu;
+    public GameObject joyStickCanvas;
+    public GameObject cameraCanvasScore;
+    public TextMeshProUGUI gameScoreText;
 
     [Header("Enviroment")]
     public float sideWallDistance;
@@ -100,12 +102,12 @@ public class GameManager : MonoBehaviour
         // Score Value
         currentScore = 0;
 
+        // Abilities Values
+        playerDashCount = 0;
+
         // TODO - Signals the Game has started and only runs it once if the game has already started - To be removed
         if (!GameManager.singleton.GameStarted)
             GameManager.singleton.StartGame();
-
-        // youWonText.SetActive(false);
-        // youDiedText.SetActive(false);
     }
 
     void Update()
@@ -185,13 +187,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // TODO - Change how this works to be easier to reuse
     public void EndGame(bool gameWon)
     {
         GameEnded = true;
 
         // Stops Player Running Sound in the background
         playerController.playerRunningAudioSource.Stop();
+
+        // Disables the Joystick and hides it
+        joyStickCanvas.SetActive(false);
 
         if (!gameWon)
         {
@@ -204,11 +208,18 @@ public class GameManager : MonoBehaviour
         else
         {
             GameWon = true;
-            Invoke("RestartGame", transitionTime);
-
-            // Debug.Log("Finish Line Reached !!!");
-            // youWonText.SetActive(true);
+            AddSlowMotionEffect("ShowGameWonScreen", transitionTime);
         }
+    }
+
+    private void ShowGameWonScreen()
+    {
+        Time.timeScale = 0f;
+
+        cameraCanvasScore.SetActive(false);
+        gameScoreText.text = "Score: " + currentScore;
+
+        gameWonMenu.SetActive(true);
     }
 
     public void QuitGame()
@@ -222,6 +233,15 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         // Scene Numbers are according to those shown in Build
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Game Scene");
+    }
+
+    public void GoToNextLevel()
+    {
+        // TODO - Add logic to increase length according to a variable when scene loads
+        // Debug.Log("Loading Next Level !!!");
+
+        // Temporary Implementation
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game Scene");
     }
 
