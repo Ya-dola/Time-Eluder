@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         // Written to show as Application.Quit doesnt do anything in Editor
-        Debug.Log("Quit the Game !!!");
+        // Debug.Log("Quit the Game !!!");
 
         Application.Quit();
     }

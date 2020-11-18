@@ -21,7 +21,7 @@ public class StartManager : MonoBehaviour
     public void QuitTimeEluder()
     {
         // Written to show as Application.Quit doesnt do anything in Editor
-        Debug.Log("Quit the Game !!!");
+        // Debug.Log("Quit the Game !!!");
 
         Application.Quit();
     }
@@ -39,7 +39,7 @@ public class StartManager : MonoBehaviour
             float loadingProgress = Mathf.Clamp01(loadSceneOperation.progress / 0.9f);
 
             loadingBarSlider.value = loadingProgress;
-            loadingBarPercentageText.text = loadingProgress * 100 + "%";
+            loadingBarPercentageText.text = (loadingProgress * 100).ToString("F2") + "%";
 
             yield return null;
         }
