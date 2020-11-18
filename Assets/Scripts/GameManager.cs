@@ -54,10 +54,12 @@ public class GameManager : MonoBehaviour
     public Toggle dashedLineToggle;
 
     [Header("End Game Menu")]
-    public GameObject gameWonMenu;
     public GameObject joyStickCanvas;
-    public GameObject cameraCanvasScore;
-    public TextMeshProUGUI gameScoreText;
+    public GameObject cameraCanvas;
+    public GameObject gameWonMenu;
+    public TextMeshProUGUI gameWonScoreText;
+    public GameObject gameLostMenu;
+    public TextMeshProUGUI gameLostScoreText;
 
     [Header("Enviroment")]
     public float sideWallDistance;
@@ -197,18 +199,18 @@ public class GameManager : MonoBehaviour
         // Disables the Joystick and hides it
         joyStickCanvas.SetActive(false);
 
-        if (!gameWon)
-        {
-            GameLost = true;
-            AddSlowMotionEffect("RestartGame", transitionTime);
+        // Hides the Camera Canvas UI
+        cameraCanvas.SetActive(false);
 
-            // Debug.Log("Death Obstracle hit !!!");
-            // youDiedText.SetActive(true);
-        }
-        else
+        if (gameWon)
         {
             GameWon = true;
             AddSlowMotionEffect("ShowGameWonScreen", transitionTime);
+        }
+        else
+        {
+            GameLost = true;
+            AddSlowMotionEffect("ShowGameLostScreen", transitionTime);
         }
     }
 
@@ -216,10 +218,16 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
 
-        cameraCanvasScore.SetActive(false);
-        gameScoreText.text = "Score: " + currentScore;
-
+        gameWonScoreText.text = "Score: " + currentScore;
         gameWonMenu.SetActive(true);
+    }
+
+    private void ShowGameLostScreen()
+    {
+        Time.timeScale = 0f;
+
+        gameLostScoreText.text = "Score: " + currentScore;
+        gameLostMenu.SetActive(true);
     }
 
     public void QuitGame()
