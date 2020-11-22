@@ -169,8 +169,8 @@ GameObject:
   - component: {fileID: 6846963292301421720}
   - component: {fileID: 8097610548471621447}
   - component: {fileID: 7115523293738823659}
-  - component: {fileID: 1950675447365344916}
   - component: {fileID: 8399257056492238876}
+  - component: {fileID: 1950675447365344916}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -232,10 +232,13 @@ MonoBehaviour:
   playerSlowDownSpeed: 0.74
   joystickAbilityZone: 0.88
   playerDashSpeed: 200
-  playerDashTime: 0.25
+  playerDashTimeDuration: 0.25
+  playerSlowTimeDuration: 0.8
   dashSmokeEmissionOverDistance: 6
   playerDashSound: {fileID: 8300000, guid: db2d811aea27de544a167c7353bbcf24, type: 3}
   playerDashSoundVolume: 0.8
+  playerSlowTimeSound: {fileID: 8300000, guid: 98500bf0d4b9d364daa3df08494db80f, type: 3}
+  playerSlowTimeSoundVolume: 0.8
 --- !u!65 &8097610548471621447
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -265,19 +268,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!135 &1950675447365344916
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 766844280890778739}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.021333333
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &8399257056492238876
 AudioSource:
   m_ObjectHideFlags: 0
@@ -374,6 +364,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &1950675447365344916
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766844280890778739}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.021333333
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1271552166884813225
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour
     [Range(0, 1)]
     public float joystickAbilityZone;
     public float playerDashSpeed;
-    public float playerDashTime;
+    public float playerDashTimeDuration;
+    public float playerSlowTimeDuration;
 
     [Header("Smoke Particles")]
     public float dashSmokeEmissionOverDistance;
@@ -34,6 +35,9 @@ public class PlayerController : MonoBehaviour
     public AudioClip playerDashSound;
     [Range(0, 1)]
     public float playerDashSoundVolume;
+    public AudioClip playerSlowTimeSound;
+    [Range(0, 1)]
+    public float playerSlowTimeSoundVolume;
 
     private float verticalJoystickValue;
     private float horizontalJoystickValue;
@@ -77,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
         // Vector3 direction = Vector3.forward * floatingJoystick.Vertical + Vector3.right * floatingJoystick.Horizontal;
         Vector3 direction = Vector3.forward * verticalJoystickValue + Vector3.right * horizontalJoystickValue;
-        playerRigBody.AddForce(direction * Time.fixedDeltaTime * playerMoveSpeed * GameManager.singleton.playerSpeedFactor, ForceMode.VelocityChange);
+        playerRigBody.AddForce(direction * PlayerTimeFlow() * playerMoveSpeed * GameManager.singleton.playerSpeedFactor, ForceMode.VelocityChange);
 
         // To reset the force applied on the player and reducing it gradually 
         if (direction == Vector3.zero)
@@ -92,6 +96,9 @@ public class PlayerController : MonoBehaviour
 
         // Dashing Logic for Player
         ActivatePlayerDash();
+
+        // Slow Time Logic for Player
+        ActivatePlayerSlowTime();
     }
 
     void Update()
@@ -134,7 +141,10 @@ public class PlayerController : MonoBehaviour
 
     private void ActivatePlayerDash()
     {
-        if (joystick.Vertical > joystickAbilityZone && GameManager.singleton.isDashCooldown == false && GameManager.singleton.playerDashCount > 0)
+        if (joystick.Vertical > joystickAbilityZone &&
+            GameManager.singleton.isDashCooldown == false &&
+            GameManager.singleton.dashCount > 0 &&
+            !GameManager.singleton.SlowTimeStatus)
         {
             GameManager.singleton.isDashCooldown = true;
             GameManager.singleton.darkDashImage.fillAmount = 1;
@@ -145,7 +155,7 @@ public class PlayerController : MonoBehaviour
         // Dash Cooling Down
         if (GameManager.singleton.isDashCooldown)
         {
-            GameManager.singleton.darkDashImage.fillAmount -= 1 / GameManager.singleton.playerDashCooldown * Time.deltaTime;
+            GameManager.singleton.darkDashImage.fillAmount -= 1 / GameManager.singleton.dashCooldown * Time.fixedDeltaTime;
 
             if (GameManager.singleton.darkDashImage.fillAmount <= 0)
             {
@@ -162,18 +172,19 @@ public class PlayerController : MonoBehaviour
         // Dash Activated
         GameManager.singleton.DashStarted();
 
+        // Dash Effects
         var dashSmokeEmission = playerSmokeParticles.emission;
         dashSmokeEmission.rateOverDistance = dashSmokeEmissionOverDistance;
 
         // Plays the sound between the Camera's position and the Player's position
         AudioSource.PlayClipAtPoint(playerDashSound, 0.9f * Camera.main.transform.position + 0.1f * transform.position, playerDashSoundVolume);
 
-        GameManager.singleton.playerDashCount--;
+        GameManager.singleton.dashCount--;
 
-        while (Time.time < startTime + playerDashTime)
+        while (Time.time < startTime + playerDashTimeDuration)
         {
             Vector3 direction = Vector3.forward * verticalJoystickValue + Vector3.right * horizontalJoystickValue;
-            playerRigBody.AddForce(direction * Time.fixedDeltaTime * playerDashSpeed * GameManager.singleton.playerSpeedFactor, ForceMode.VelocityChange);
+            playerRigBody.AddForce(direction * PlayerTimeFlow() * playerDashSpeed * GameManager.singleton.playerSpeedFactor, ForceMode.VelocityChange);
 
             yield return null;
         }
@@ -181,5 +192,76 @@ public class PlayerController : MonoBehaviour
         // Dash Deactivated
         GameManager.singleton.DashEnded();
         dashSmokeEmission.rateOverDistance = 0;
+    }
+
+    private void ActivatePlayerSlowTime()
+    {
+        if (joystick.Vertical < -joystickAbilityZone &&
+            GameManager.singleton.isSlowTimeCooldown == false &&
+            GameManager.singleton.slowTimeCount > 0 &&
+            !GameManager.singleton.DashStatus)
+        {
+            GameManager.singleton.isSlowTimeCooldown = true;
+            GameManager.singleton.darkSlowTimeImage.fillAmount = 1;
+
+            StartCoroutine(SlowTime());
+        }
+
+        // Slow Time Cooling Down
+        if (GameManager.singleton.isSlowTimeCooldown)
+        {
+            GameManager.singleton.darkSlowTimeImage.fillAmount -= 1 / GameManager.singleton.slowTimeCooldown * Time.fixedDeltaTime;
+
+            if (GameManager.singleton.darkSlowTimeImage.fillAmount <= 0)
+            {
+                GameManager.singleton.darkSlowTimeImage.fillAmount = 0;
+                GameManager.singleton.isSlowTimeCooldown = false;
+            }
+        }
+    }
+
+    IEnumerator SlowTime()
+    {
+        float startTime = Time.time;
+
+        // Slow Time Activated
+        GameManager.singleton.SlowTimeStarted();
+
+        // Slow Time Effects
+        // var dashSmokeEmission = playerSmokeParticles.emission;
+        // dashSmokeEmission.rateOverDistance = dashSmokeEmissionOverDistance;
+
+        // Plays the sound between the Camera's position and the Player's position
+        AudioSource.PlayClipAtPoint(playerSlowTimeSound, 0.9f * Camera.main.transform.position + 0.1f * transform.position, playerSlowTimeSoundVolume);
+
+        GameManager.singleton.slowTimeCount--;
+
+        // playerSlowTime / GameManager.singleton.slowTimeFlow is the duration of Slow Time
+        while (Time.time < startTime + playerSlowTimeDuration)
+        {
+            GameManager.singleton.StartSlowTimeFlow();
+            playerAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+
+            yield return null;
+        }
+
+        // Slow Time Deactivated
+        DeactivateSlowTime();
+    }
+
+    private void DeactivateSlowTime()
+    {
+        playerAnimator.updateMode = AnimatorUpdateMode.Normal;
+
+        GameManager.singleton.EndSlowTimeFlow();
+        GameManager.singleton.SlowTimeEnded();
+    }
+
+    private float PlayerTimeFlow()
+    {
+        if (!GameManager.singleton.SlowTimeStatus)
+            return Time.fixedDeltaTime;
+        else
+            return ((Time.fixedDeltaTime / Time.timeScale) * 2);
     }
 }

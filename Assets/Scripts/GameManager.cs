@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public bool GameEnded { get; private set; }
     public bool GamePaused { get; private set; }
     public bool DashStatus { get; private set; }
+    public bool SlowTimeStatus { get; private set; }
 
     [Header("Player")]
     [SerializeField] private PlayerController playerController;
@@ -26,19 +27,23 @@ public class GameManager : MonoBehaviour
     [Header("Camera Background")]
     public BackgroundController backgroundController;
 
-    [Header("Slow Motion Time")]
-    [SerializeField] private float slowMotionFactor = 0.1f;
-    [SerializeField] private float deltaTime = 0.02f;
-    [SerializeField] private int transitionTime = 3;
+    [Header("Time Flow")]
+    public float defaultTimeFlow;
+    public float slowTimeFlow;
+    public float slowMotionFactor;
+    public float deltaTime;
+    public int transitionTime;
 
     [Header("Abilities")]
     public Image darkDashImage;
-    public float playerDashCooldown;
+    public float dashIncrement;
+    public float dashCooldown;
     public TextMeshProUGUI dashCountText;
-    public int playerDashCount { get; set; }
+    public int dashCount { get; set; }
     public bool isDashCooldown { get; set; }
     public Image darkSlowTimeImage;
-    public float playerSlowTimeCooldown;
+    public float slowTimeIncrement;
+    public float slowTimeCooldown;
     public TextMeshProUGUI slowTimeCountText;
     public int slowTimeCount { get; set; }
     public bool isSlowTimeCooldown { get; set; }
@@ -80,8 +85,8 @@ public class GameManager : MonoBehaviour
         else if (singleton != this)
             Destroy(gameObject);
 
-        // Specifies Default time flow
-        Time.timeScale = 1f;
+        // Specifies Default Time Flow
+        Time.timeScale = defaultTimeFlow;
         Time.fixedDeltaTime = deltaTime;
 
         // Environment Initial Walking Speed
@@ -105,7 +110,8 @@ public class GameManager : MonoBehaviour
         currentScore = 0;
 
         // Abilities Values
-        playerDashCount = 0;
+        dashCount = 0;
+        slowTimeCount = 0;
 
         // TODO - Signals the Game has started and only runs it once if the game has already started - To be removed
         if (!GameManager.singleton.GameStarted)
@@ -128,7 +134,10 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: " + currentScore;
 
         // Dash Count Updates
-        dashCountText.text = "" + playerDashCount;
+        dashCountText.text = "" + dashCount;
+
+        // Slow Time Count Updates
+        slowTimeCountText.text = "" + slowTimeCount;
     }
 
     public void AddCoinCollected()
@@ -137,8 +146,12 @@ public class GameManager : MonoBehaviour
         currentScore += coinScoreValue;
 
         // Dash Count Increases every 4 coins collected
-        if (currentScore % 4 == 0)
-            playerDashCount++;
+        if (currentScore % dashIncrement == 0)
+            dashCount++;
+
+        // Slow Time Count Increases every 12 coins collected
+        if (currentScore % slowTimeIncrement == 0)
+            slowTimeCount++;
 
         if (currentScore > highScore)
         {
@@ -273,6 +286,16 @@ public class GameManager : MonoBehaviour
         Time.fixedDeltaTime = deltaTime * Time.timeScale;
     }
 
+    public void StartSlowTimeFlow()
+    {
+        Time.timeScale = slowTimeFlow;
+    }
+
+    public void EndSlowTimeFlow()
+    {
+        Time.timeScale = defaultTimeFlow;
+    }
+
     public void DashStarted()
     {
         DashStatus = true;
@@ -281,5 +304,15 @@ public class GameManager : MonoBehaviour
     public void DashEnded()
     {
         DashStatus = false;
+    }
+
+    public void SlowTimeStarted()
+    {
+        SlowTimeStatus = true;
+    }
+
+    public void SlowTimeEnded()
+    {
+        SlowTimeStatus = false;
     }
 }
