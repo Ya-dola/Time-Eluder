@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     public bool isDashCooldown { get; set; }
     public Image darkSlowTimeImage;
     public Image activeSlowTimeImage;
+    public GameObject slowTimeBackdrop;
     public float slowTimeIncrement;
     public float slowTimeCooldown;
     public TextMeshProUGUI slowTimeCountText;
@@ -276,11 +277,13 @@ public class GameManager : MonoBehaviour
     public void StartSlowTimeFlow()
     {
         Time.timeScale = slowTimeFlow;
+        slowTimeBackdrop.SetActive(true);
     }
 
     public void EndSlowTimeFlow()
     {
         Time.timeScale = defaultTimeFlow;
+        slowTimeBackdrop.SetActive(false);
     }
 
     public void DashStarted()
