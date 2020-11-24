@@ -15933,7 +15933,7 @@ MonoBehaviour:
   gameWonScoreText: {fileID: 1809746540}
   gameLostMenu: {fileID: 461092595}
   gameLostScoreText: {fileID: 1017658344}
-  sideWallDistance: 5
+  sideWallDistance: 4.5
   environmentWalkingSpeed: 5
   startLine: {fileID: 868698790}
   finishLine: {fileID: 1429048799}
