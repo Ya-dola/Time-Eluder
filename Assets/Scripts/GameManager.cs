@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public int dashCount { get; set; }
     public bool isDashCooldown { get; set; }
     public Image darkSlowTimeImage;
+    public Image activeSlowTimeImage;
     public float slowTimeIncrement;
     public float slowTimeCooldown;
     public TextMeshProUGUI slowTimeCountText;
@@ -105,6 +106,7 @@ public class GameManager : MonoBehaviour
         // Abilities Cooldown 
         darkDashImage.fillAmount = 0;
         darkSlowTimeImage.fillAmount = 0;
+        activeSlowTimeImage.fillAmount = 0;
 
         // Score Value
         currentScore = 0;

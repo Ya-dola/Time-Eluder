@@ -203,6 +203,7 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.singleton.isSlowTimeCooldown = true;
             GameManager.singleton.darkSlowTimeImage.fillAmount = 1;
+            GameManager.singleton.activeSlowTimeImage.fillAmount = 1;
 
             StartCoroutine(SlowTime());
         }
@@ -218,6 +219,16 @@ public class PlayerController : MonoBehaviour
                 GameManager.singleton.isSlowTimeCooldown = false;
             }
         }
+
+        // Active Slow Time Indicator
+        if (GameManager.singleton.SlowTimeStatus)
+        {
+            // TODO - Figure Out Equation on how 0.0244 is the value with Time Scale of 0.2
+            GameManager.singleton.activeSlowTimeImage.fillAmount -= 0.0244f;
+
+            if (GameManager.singleton.activeSlowTimeImage.fillAmount <= 0)
+                GameManager.singleton.activeSlowTimeImage.fillAmount = 0;
+        }
     }
 
     IEnumerator SlowTime()
@@ -227,22 +238,27 @@ public class PlayerController : MonoBehaviour
         // Slow Time Activated
         GameManager.singleton.SlowTimeStarted();
 
-        // Slow Time Effects
-        // var dashSmokeEmission = playerSmokeParticles.emission;
-        // dashSmokeEmission.rateOverDistance = dashSmokeEmissionOverDistance;
-
         // Plays the sound between the Camera's position and the Player's position
         AudioSource.PlayClipAtPoint(playerSlowTimeSound, 0.9f * Camera.main.transform.position + 0.1f * transform.position, playerSlowTimeSoundVolume);
 
         GameManager.singleton.slowTimeCount--;
 
-        // playerSlowTime / GameManager.singleton.slowTimeFlow is the duration of Slow Time
+        // playerSlowTimeDuration / GameManager.singleton.slowTimeFlow is the duration of Slow Time
         while (Time.time < startTime + playerSlowTimeDuration)
         {
-            GameManager.singleton.StartSlowTimeFlow();
-            playerAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+            // To Pause Game while in Slow Time
+            if (!GameManager.singleton.GamePaused)
+            {
+                GameManager.singleton.StartSlowTimeFlow();
+                playerAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
 
-            yield return null;
+                yield return null;
+            }
+            else
+            {
+                playerAnimator.updateMode = AnimatorUpdateMode.Normal;
+                yield return null;
+            }
         }
 
         // Slow Time Deactivated
