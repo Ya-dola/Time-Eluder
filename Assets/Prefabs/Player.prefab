@@ -234,6 +234,7 @@ MonoBehaviour:
   playerDashSpeed: 200
   playerDashTimeDuration: 0.25
   playerSlowTimeDuration: 0.8
+  runningSmokeEmissionOverTime: 10
   dashSmokeEmissionOverDistance: 6
   playerDashSound: {fileID: 8300000, guid: db2d811aea27de544a167c7353bbcf24, type: 3}
   playerDashSoundVolume: 0.8
@@ -1459,7 +1460,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2

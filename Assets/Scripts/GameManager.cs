@@ -114,10 +114,6 @@ public class GameManager : MonoBehaviour
         // Abilities Values
         dashCount = 0;
         slowTimeCount = 0;
-
-        // TODO - Signals the Game has started and only runs it once if the game has already started - To be removed
-        if (!GameManager.singleton.GameStarted)
-            GameManager.singleton.StartGame();
     }
 
     void Update()
@@ -169,17 +165,6 @@ public class GameManager : MonoBehaviour
 
         // Plays Player Running Sound in the background
         playerController.playerRunningAudioSource.Play();
-
-        // TODO - Change to have a Button in UI to start the game
-        // Base the buttons off of what was used in Grid Generator
-        // if (Input.GetKeyDown("w"))
-        // {
-        //     // Signals the Game has started and only runs it once if the game has already started
-        //     if (!GameManager.singleton.GameStarted)
-        //         GameManager.singleton.StartGame();
-        //     Debug.Log("Game Started !!!");
-        // }
-
     }
 
     public void PauseOrResumeGame()
@@ -261,7 +246,7 @@ public class GameManager : MonoBehaviour
 
     public void GoToNextLevel()
     {
-        // TODO - Add logic to increase length according to a variable when scene loads
+        // TODO - Add logic to increase length according to a variable when the game scene loads according to level number
         // Debug.Log("Loading Next Level !!!");
 
         // Temporary Implementation

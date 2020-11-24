@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public float playerSlowTimeDuration;
 
     [Header("Smoke Particles")]
+    public float runningSmokeEmissionOverTime;
     public float dashSmokeEmissionOverDistance;
 
     [Header("Sounds")]
@@ -103,6 +104,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // To Start the Level and only starts it once if the game has already started
+        if (!GameManager.singleton.GameStarted &&
+            (joystick.Vertical != 0 || joystick.Horizontal != 0))
+        {
+            GameManager.singleton.StartGame();
+
+            // Running Effect
+            var runningSmokeEmission = playerSmokeParticles.emission;
+            runningSmokeEmission.rateOverTime = runningSmokeEmissionOverTime;
+        }
+
+
         playerAnimator.SetBool("GameStarted", GameManager.singleton.GameStarted);
         playerAnimator.SetBool("GameWon", GameManager.singleton.GameWon);
         playerAnimator.SetBool("GameLost", GameManager.singleton.GameLost);
