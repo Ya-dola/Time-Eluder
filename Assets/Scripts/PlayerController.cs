@@ -130,20 +130,20 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 playerOldPos = transform.position;
 
-        // To make the ball not fall from the floor through the sides
+        // To make the player not fall from the floor through the sides
         if (transform.position.x < -GameManager.singleton.sideWallDistance)
             playerOldPos.x = -GameManager.singleton.sideWallDistance;
 
         else if (transform.position.x > GameManager.singleton.sideWallDistance)
             playerOldPos.x = GameManager.singleton.sideWallDistance;
 
-        // To make the ball maintain a certain distance in front of the camera and never behind it
+        // To make the player maintain a certain distance in front of the camera and never behind it
         float playerclosestPostion = Camera.main.transform.position.z + GameManager.singleton.minCamDistance;
 
         if (transform.position.z < playerclosestPostion)
             playerOldPos.z = playerclosestPostion;
 
-        // To make the ballnever extend a certain distance from the camera
+        // To make the player never extend a certain distance from the camera
         float playerfurthestPostion = Camera.main.transform.position.z + GameManager.singleton.maxCamDistance;
 
         if (transform.position.z > playerfurthestPostion)
